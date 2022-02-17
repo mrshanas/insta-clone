@@ -9,7 +9,7 @@ import { checkAuthorization } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/secrets", checkAuthorization, secretPage);
+// router.get("/secrets", checkAuthorization, secretPage);
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.get("/logout", logoutUser);
