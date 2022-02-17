@@ -2,7 +2,6 @@ import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import "dotenv/config";
 import jwt from "jsonwebtoken";
-import { request } from "express";
 
 export const secretPage = (req, res) => {
   res.send("<h1>Welcome to my goals page</h1>");
