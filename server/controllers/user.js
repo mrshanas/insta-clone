@@ -1,45 +1,37 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
+import "dotenv/config";
+import jwt from "jsonwebtoken";
+import { request } from "express";
 
 export const secretPage = (req, res) => {
-  res.send("Welcome to my secret page");
+  res.send("<h1>Welcome to my goals page</h1>");
 };
-
-// export const loginUser = async (req, res) => {
-//   const { email, password } = req.body;
-
-//   try {
-//     //const user = await User.find({ email: email });
-//     await User.find({ email: email }, (err, user) => {
-//       if (!err) {
-//         bcrypt.compare(password, user.password, (err, result) => {
-//           if (result) return res.redirect("/secrets");
-//         });
-//       } else {
-//         return res.redirect("/secrets");
-//       }
-//     }).clone();
-//   } catch (error) {
-//     res.status(404).json({ message: error.message });
-//   }
-//};
 
 export const loginUser = async (req, res) => {
   const user = await User.find({ email: req.body.email });
   if (user) {
-    console.log(user);
     const match = await bcrypt.compare(req.body.password, user[0].password);
     if (match) {
-      return res.redirect("/secrets");
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
+      res.status(200).json({
+        token,
+      });
+      // return res.redirect("/secrets");
     }
   } else {
     res.status(404).json({
-      message: "User not found please login",
+      message: "User not found, Please login",
     });
   }
 };
 
-export const logoutUser = async () => {};
+export const logoutUser = (req, res) => {
+  req.user = null;
+  res.status(200).json({ message: "Bye!, Sorry to see you leave" });
+};
 
 export const registerUser = async (req, res) => {
   const { password } = req.body;
@@ -48,8 +40,16 @@ export const registerUser = async (req, res) => {
     bcrypt.hash(password, 10, (err, hash) => {
       if (!err) {
         userDetails = { ...req.body, password: hash };
-        const user = User.create(userDetails);
-        return res.status(201).json({ user });
+        User.create(userDetails, (err, user) => {
+          // assign jwt after user registers
+          const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+            expiresIn: "1h",
+          });
+          res.status(201).json({
+            user: req.body,
+            token,
+          });
+        });
       }
     });
   } catch (error) {
