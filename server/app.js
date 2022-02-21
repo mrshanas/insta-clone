@@ -14,6 +14,7 @@ app.use("/api/v1/auth", userRoutes);
 app.use("/api/v1/", goalRoutes);
 
 const PORT = process.env.PORT || 5000;
+
 mongoose
   .connect("mongodb://localhost:27017/goalsDB")
   .then(() =>

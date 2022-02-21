@@ -14,7 +14,7 @@ export const checkAuthorization = async (req, res, next) => {
       //   req.user = decodedData;
       //   next();
       jwt.verify(token, process.env.JWT_SECRET, (err, decodedData) => {
-        if (err.name === "TokenExpiredError") {
+        if (err) {
           req.headers.authorization = null;
           res.status(403).json({ message: "Token expired please login" });
         } else {
@@ -24,7 +24,7 @@ export const checkAuthorization = async (req, res, next) => {
       });
     }
   } catch (error) {
-    console.log(error.name);
+    console.log(error);
     // checking jwt expire manually
     // if (error.name === "TokenExpiredError") {
     //   req.headers.authorization = null;

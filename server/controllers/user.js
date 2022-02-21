@@ -3,22 +3,22 @@ import bcrypt from "bcrypt";
 import "dotenv/config";
 import jwt from "jsonwebtoken";
 
-export const secretPage = (req, res) => {
-  res.send("<h1>Welcome to my goals page</h1>");
-};
+// export const secretPage = (req, res) => {
+//   res.send("<h1>Welcome to my goals page</h1>");
+// };
 
 export const loginUser = async (req, res) => {
   const user = await User.find({ email: req.body.email });
   if (user) {
     const match = await bcrypt.compare(req.body.password, user[0].password);
     if (match) {
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      console.log(user);
+      const token = jwt.sign({ id: user[0]._id }, process.env.JWT_SECRET, {
         expiresIn: "1h",
       });
       res.status(200).json({
         token,
       });
-      // return res.redirect("/secrets");
     }
   } else {
     res.status(404).json({
