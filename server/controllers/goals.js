@@ -1,4 +1,5 @@
 import Goal from "../models/goalModel.js";
+// Next step is retrieve a specific goal with query parameter
 
 export const displayGoals = (req, res) => {
   Goal.find({ author: req.user.id }, (err, goals) => {

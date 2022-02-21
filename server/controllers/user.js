@@ -3,10 +3,6 @@ import bcrypt from "bcrypt";
 import "dotenv/config";
 import jwt from "jsonwebtoken";
 
-// export const secretPage = (req, res) => {
-//   res.send("<h1>Welcome to my goals page</h1>");
-// };
-
 export const loginUser = async (req, res) => {
   const user = await User.find({ email: req.body.email });
   if (user) {
