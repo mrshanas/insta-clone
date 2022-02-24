@@ -5,6 +5,7 @@ import {
   createGoal,
   displayGoal,
   deleteGoal,
+  updateGoal,
 } from "../controllers/goals.js";
 
 const router = express.Router();
@@ -16,6 +17,7 @@ router.post("/create_goal", checkAuthorization, createGoal);
 router
   .route("/goal/:goalID")
   .get(checkAuthorization, displayGoal)
-  .delete(checkAuthorization, deleteGoal);
+  .delete(checkAuthorization, deleteGoal)
+  .patch(checkAuthorization, updateGoal);
 
 export default router;

@@ -47,3 +47,16 @@ export const deleteGoal = (req, res) => {
         });
   });
 };
+
+export const updateGoal = (req, res) => {
+  Goal.findOneAndUpdate(
+    { author: req.user.id, _id: req.params.goalID },
+    req.body,
+    { returnDocument: "after" },
+    (err, updatedGoal) => {
+      !err
+        ? res.status(200).json({ success: true, goal: updatedGoal })
+        : res.status(404).json({ success: false, message: err });
+    }
+  );
+};
