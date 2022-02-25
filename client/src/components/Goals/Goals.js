@@ -4,7 +4,7 @@ import { fetchGoals } from "../../actions/goals";
 
 const Goals = () => {
   const dispatch = useDispatch();
-  const { goals } = useSelector((state) => state.goalsReducer);
+  const goals = useSelector((state) => state.goalsReducer);
   useEffect(() => {
     dispatch(fetchGoals());
   }, []);
