@@ -1,14 +1,19 @@
 const userData = {
-  token: "",
+  token: null,
+  isLogged: false,
 };
 
-const users = (userState = userData, action) => {
+export const users = (userState = userData, action) => {
   switch (action.type) {
     case "LOGIN":
-      return { ...action.payload };
-      break;
+    case "REGISTER":
+      localStorage.setItem("token", JSON.stringify(action.data));
+      return { ...userState, token: action.data.token, isLogged: true };
+    case "LOGOUT":
+      localStorage.removeItem("token");
+      return { ...userState, token: null, isLogged: false };
 
     default:
-      break;
+      return userState;
   }
 };
