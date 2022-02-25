@@ -107,9 +107,8 @@ const Layout = () => {
               }}
             >
               {pages.map((page, i) => (
-                <Link to={page.link} style={{ textDecoration: "none" }}>
+                <Link to={page.link} style={{ textDecoration: "none" }} key={i}>
                   <Button
-                    key={i}
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: "white", display: "block" }}
                   >

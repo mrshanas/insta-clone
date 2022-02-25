@@ -7,6 +7,7 @@ export const displayGoals = (req, res) => {
       : res.status(404).json({
           message: "Not found",
         });
+    console.log(err);
   });
 };
 
@@ -14,9 +15,9 @@ export const createGoal = (req, res) => {
   const goal = req.body;
   goal.author = req.user.id;
 
-  Goal.create(goal, (err, doc) => {
+  Goal.create(goal, (err, goal) => {
     !err
-      ? res.status(201).json({ message: "Successfully created", doc })
+      ? res.status(201).json({ message: "Successfully created", goal })
       : res.status(500).json({
           message: "Internal server error",
         });

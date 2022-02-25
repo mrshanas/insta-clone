@@ -1,19 +1,20 @@
 import { loginUser, registerUser } from "../api";
 
-export const login = async (loginData) => {
+export const login = (loginData) => async (dispatch) => {
   try {
-    const { data } = loginUser(loginData);
+    const { data } = await loginUser(loginData);
     //console.log(res);
-    return { type: "LOGIN", data };
+
+    dispatch({ type: "LOGIN", data });
   } catch (error) {
     console.log(error);
   }
 };
 
-export const register = async (registerData) => {
+export const register = (registerData) => async (dispatch) => {
   try {
     const { data } = registerUser(registerData);
-    return { type: "REGISTER", data };
+    dispatch({ type: "REGISTER", data });
   } catch (error) {
     console.log(error);
   }

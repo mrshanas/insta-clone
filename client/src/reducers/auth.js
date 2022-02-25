@@ -1,17 +1,12 @@
-const userData = {
-  token: null,
-  isLogged: false,
-};
-
-export const users = (userState = userData, action) => {
+export const users = (userState = { authData: null }, action) => {
   switch (action.type) {
     case "LOGIN":
     case "REGISTER":
       localStorage.setItem("token", JSON.stringify(action.data));
-      return { ...userState, token: action.data.token, isLogged: true };
+      return { ...userState, authData: action.data, isLogged: true };
     case "LOGOUT":
       localStorage.removeItem("token");
-      return { ...userState, token: null, isLogged: false };
+      return { ...userState, authData: null, isLogged: false };
 
     default:
       return userState;

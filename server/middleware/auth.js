@@ -6,7 +6,6 @@ export const checkAuthorization = async (req, res, next) => {
       res.status(401).json({
         message: "Not Authorized",
       });
-      res.redirect("/login");
     } else {
       const token = req.headers.authorization.split(" ")[1];
       // checking for jwt expire manually
