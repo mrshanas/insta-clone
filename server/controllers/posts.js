@@ -1,6 +1,6 @@
 import Goal from "../models/goalModel.js";
 
-export const displayGoals = (req, res) => {
+export const displayPosts = (req, res) => {
   Goal.find({ author: req.user.id }, (err, goals) => {
     !err
       ? res.status(200).json({ goals })
@@ -11,7 +11,7 @@ export const displayGoals = (req, res) => {
   });
 };
 
-export const createGoal = (req, res) => {
+export const createPost = (req, res) => {
   const goal = req.body;
   goal.author = req.user.id;
 
@@ -24,7 +24,7 @@ export const createGoal = (req, res) => {
   });
 };
 
-export const displayGoal = (req, res) => {
+export const displayPost = (req, res) => {
   Goal.find({ author: req.user.id, _id: req.params.goalID }, (err, goal) => {
     !err
       ? res.status(200).json({
@@ -38,7 +38,7 @@ export const displayGoal = (req, res) => {
   });
 };
 
-export const deleteGoal = (req, res) => {
+export const deletePost = (req, res) => {
   Goal.deleteOne({ author: req.user.id, _id: req.params.goalID }, (err) => {
     !err
       ? res.status(204)
@@ -49,7 +49,7 @@ export const deleteGoal = (req, res) => {
   });
 };
 
-export const updateGoal = (req, res) => {
+export const updatePost = (req, res) => {
   Goal.findOneAndUpdate(
     { author: req.user.id, _id: req.params.goalID },
     req.body,

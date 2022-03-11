@@ -1,12 +1,12 @@
 import express from "express";
-import { loginUser, logoutUser, registerUser } from "../controllers/user.js";
-import { checkAuthorization } from "../middleware/auth.js";
+import { loginUser, registerUser } from "../controllers/user.js";
 
 const router = express.Router();
 
 // router.get("/secrets", checkAuthorization, secretPage);
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-router.get("/logout", logoutUser);
+
+// router.get('/logout') - handled on the client side
 
 export default router;

@@ -23,10 +23,12 @@ export const loginUser = async (req, res) => {
   }
 };
 
-export const logoutUser = (req, res) => {
-  req.user = null;
-  res.status(200).json({ message: "Bye!, Sorry to see you leave" });
-};
+// export const logoutUser = (req, res) => {
+//   req.user = null;
+//   res.status(200).json({ message: "Bye!, Sorry to see you leave" });
+// };
+
+// Logging out user will be handled in the client side
 
 export const registerUser = async (req, res) => {
   const { password } = req.body;

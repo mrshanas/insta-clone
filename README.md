@@ -1,6 +1,6 @@
-# What are your Goals 😉
+# Instagram Clone
 
-Write down your goals for this day, month or year!!
+A fullstack instagram clone
 
 ### Tech used
 
