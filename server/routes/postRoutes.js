@@ -6,16 +6,16 @@ import {
   displayPost,
   deletePost,
   updatePost,
-} from "../controllers/goals.js";
+} from "../controllers/posts.js";
 
 const router = express.Router();
 
-router.get("/goals", checkAuthorization, displayPosts);
+router.get("/posts", checkAuthorization, displayPosts);
 
-router.post("/create_goal", checkAuthorization, createPost);
+router.post("/create_post", checkAuthorization, createPost);
 
 router
-  .route("/goal/:goalID")
+  .route("/post/:postID")
   .get(checkAuthorization, displayPost)
   .delete(checkAuthorization, deletePost)
   .patch(checkAuthorization, updatePost);

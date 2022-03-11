@@ -1,7 +1,7 @@
-import Goal from "../models/goalModel.js";
+import Post from "../models/postModel";
 
 export const displayPosts = (req, res) => {
-  Goal.find({ author: req.user.id }, (err, goals) => {
+  Post.find({ author: req.user.id }, (err, goals) => {
     !err
       ? res.status(200).json({ goals })
       : res.status(404).json({
@@ -12,12 +12,12 @@ export const displayPosts = (req, res) => {
 };
 
 export const createPost = (req, res) => {
-  const goal = req.body;
-  goal.author = req.user.id;
+  const post = req.body;
+  post.author = req.user.id;
 
-  Goal.create(goal, (err, goal) => {
+  Post.create(post, (err, goal) => {
     !err
-      ? res.status(201).json({ message: "Successfully created", goal })
+      ? res.status(201).json({ message: "Successfully created", post })
       : res.status(500).json({
           message: "Internal server error",
         });
@@ -25,38 +25,38 @@ export const createPost = (req, res) => {
 };
 
 export const displayPost = (req, res) => {
-  Goal.find({ author: req.user.id, _id: req.params.goalID }, (err, goal) => {
+  Post.find({ author: req.user.id, _id: req.params.postID }, (err, post) => {
     !err
       ? res.status(200).json({
           success: true,
-          goal,
+          post,
         })
       : res.status(404).json({
           success: false,
-          message: "Goal not found",
+          message: "Post not found",
         });
   });
 };
 
 export const deletePost = (req, res) => {
-  Goal.deleteOne({ author: req.user.id, _id: req.params.goalID }, (err) => {
+  Post.deleteOne({ author: req.user.id, _id: req.params.postID }, (err) => {
     !err
       ? res.status(204)
       : res.status(404).json({
           success: false,
-          message: "A goal with that id does not exist",
+          message: "A post with that id does not exist",
         });
   });
 };
 
 export const updatePost = (req, res) => {
-  Goal.findOneAndUpdate(
+  Post.findOneAndUpdate(
     { author: req.user.id, _id: req.params.goalID },
     req.body,
     { returnDocument: "after" },
-    (err, updatedGoal) => {
+    (err, updatedPost) => {
       !err
-        ? res.status(200).json({ success: true, goal: updatedGoal })
+        ? res.status(200).json({ success: true, post: updatedPost })
         : res.status(404).json({ success: false, message: err });
     }
   );

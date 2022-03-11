@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import userRoutes from "./routes/userRoutes.js";
-import goalRoutes from "./routes/goalRoutes.js";
+import postRoutes from "./routes/postRoutes";
 import cors from "cors";
 
 const app = express();
@@ -11,12 +11,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use("/api/v1/auth", userRoutes);
-app.use("/api/v1/", goalRoutes);
+app.use("/api/v1/", postRoutes);
 
 const PORT = process.env.PORT || 5000;
 
 mongoose
-  .connect("mongodb://localhost:27017/goalsDB")
+  .connect("mongodb://localhost:27017/instaDB")
   .then(() =>
     app.listen(PORT, () =>
       console.log(

@@ -1,15 +1,11 @@
 import mongoose from "mongoose";
 
-const goalSchema = new mongoose.Schema(
+const postSchema = new mongoose.Schema(
   {
-    title: {
+    caption: {
       type: String,
-      trim: true,
     },
-    description: {
-      type: String,
-      trim: true,
-    },
+    photo: String,
     author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -19,4 +15,4 @@ const goalSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Goal", goalSchema);
+export default mongoose.model("Goal", postSchema);
