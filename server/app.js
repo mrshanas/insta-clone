@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import userRoutes from "./routes/userRoutes.js";
-import postRoutes from "./routes/postRoutes";
+import postRoutes from "./routes/postRoutes.js";
 import cors from "cors";
 
 const app = express();
@@ -24,4 +24,4 @@ mongoose
       )
     )
   )
-  .catch((error) => console.log(error));
+  .catch((err) => console.log(err));
