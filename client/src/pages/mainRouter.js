@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import Home from "./Home/Home";
-import API from "../api";
 import Protected from "../components/Protected";
 import Profile from "../components/Profile/";
 
