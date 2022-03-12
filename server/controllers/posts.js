@@ -1,9 +1,9 @@
-import Post from "../models/postModel";
+import Post from "../models/postModel.js";
 
 export const displayPosts = (req, res) => {
-  Post.find({ author: req.user.id }, (err, goals) => {
+  Post.find({ author: req.user.id }, (err, posts) => {
     !err
-      ? res.status(200).json({ goals })
+      ? res.status(200).json({ posts })
       : res.status(404).json({
           message: "Not found",
         });
@@ -15,7 +15,7 @@ export const createPost = (req, res) => {
   const post = req.body;
   post.author = req.user.id;
 
-  Post.create(post, (err, goal) => {
+  Post.create(post, (err, post) => {
     !err
       ? res.status(201).json({ message: "Successfully created", post })
       : res.status(500).json({
@@ -51,7 +51,7 @@ export const deletePost = (req, res) => {
 
 export const updatePost = (req, res) => {
   Post.findOneAndUpdate(
-    { author: req.user.id, _id: req.params.goalID },
+    { author: req.user.id, _id: req.params.postID },
     req.body,
     { returnDocument: "after" },
     (err, updatedPost) => {

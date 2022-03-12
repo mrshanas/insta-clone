@@ -10,7 +10,7 @@ export const loginUser = async (req, res) => {
     if (match) {
       //console.log(user);
       const token = jwt.sign({ id: user[0]._id }, process.env.JWT_SECRET, {
-        expiresIn: "1h",
+        expiresIn: "24h",
       });
       res.status(200).json({
         token,
@@ -40,18 +40,35 @@ export const registerUser = async (req, res) => {
         User.create(userDetails, (err, user) => {
           // assign jwt after user registers
           const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-            expiresIn: "1h",
+            expiresIn: "24h",
           });
-          res.status(201).json({
-            user: req.body,
-            token,
-          });
+          if (!err) {
+            return res.status(201).json({
+              success: true,
+              token,
+            });
+          } else {
+            return res.status(409).json({
+              message: "User with that email already exists",
+            });
+          }
         });
       }
     });
   } catch (error) {
-    res.status(409).json({
-      message: "User with that email already exists",
+    return res.status(500).json({
+      message: "Internal server error",
+      error,
     });
   }
+};
+
+export const displayUser = (req, res) => {
+  User.find({ username: req.params.username })
+    .then((response) =>
+      res.status(200).json({
+        user: response[0],
+      })
+    )
+    .catch((err) => console.error(err));
 };
