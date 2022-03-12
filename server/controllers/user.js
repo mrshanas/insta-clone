@@ -42,16 +42,23 @@ export const registerUser = async (req, res) => {
           const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
             expiresIn: "1h",
           });
-          res.status(201).json({
-            user: req.body,
-            token,
-          });
+          if (!err) {
+            return res.status(201).json({
+              success: true,
+              token,
+            });
+          } else {
+            return res.status(409).json({
+              message: "User with that email already exists",
+            });
+          }
         });
       }
     });
   } catch (error) {
-    res.status(409).json({
-      message: "User with that email already exists",
+    return res.status(500).json({
+      message: "Internal server error",
+      error,
     });
   }
 };
