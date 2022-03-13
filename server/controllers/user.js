@@ -9,7 +9,6 @@ export const loginUser = async (req, res) => {
   if (user) {
     const match = await bcrypt.compare(req.body.password, user[0].password);
     if (match) {
-      //console.log(user);
       const token = jwt.sign({ id: user[0]._id }, process.env.JWT_SECRET, {
         expiresIn: "24h",
       });
@@ -24,20 +23,13 @@ export const loginUser = async (req, res) => {
   }
 };
 
-// export const logoutUser = (req, res) => {
-//   req.user = null;
-//   res.status(200).json({ message: "Bye!, Sorry to see you leave" });
-// };
-
-// Logging out user will be handled in the client side
-
 export const registerUser = async (req, res) => {
   const { password } = req.body;
   try {
     let userDetails;
-    bcrypt.hash(password, 10, (err, hash) => {
+    bcrypt.hash(password, 10, (err, hashedPassword) => {
       if (!err) {
-        userDetails = { ...req.body, password: hash };
+        userDetails = { ...req.body, password: hashedPassword };
         User.create(userDetails, (err, user) => {
           // assign jwt after user registers
           const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -50,7 +42,8 @@ export const registerUser = async (req, res) => {
             });
           } else {
             return res.status(409).json({
-              message: "User with that email already exists",
+              message:
+                "User with that email or username already exists, Please try another username",
             });
           }
         });
@@ -66,18 +59,13 @@ export const registerUser = async (req, res) => {
 
 export const displayUserAndPosts = (req, res) => {
   User.find({ username: req.params.username })
-    .then(
-      (response) => {
-        Post.find({ author: response[0].id }).then((posts) =>
-          res.status(200).json({
-            user: response[0],
-            posts,
-          })
-        );
-      }
-      // res.status(200).json({
-      //   user: response[0],
-      // })
-    )
+    .then((response) => {
+      Post.find({ author: response[0].id }).then((posts) =>
+        res.status(200).json({
+          user: response[0],
+          posts,
+        })
+      );
+    })
     .catch((err) => console.error(err));
 };
