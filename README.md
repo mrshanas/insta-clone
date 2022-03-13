@@ -8,3 +8,5 @@ A fullstack instagram clone
 [ExpressJs](https://expressjs.com)<br>
 [React](https://reactjs.org)<br>
 [Node](https://nodejs.org)
+
+### Disclaimer: This project is for learning purposes and inspired by [Instagram](https://instagram.com)
