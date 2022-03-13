@@ -2,6 +2,7 @@ import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import "dotenv/config";
 import jwt from "jsonwebtoken";
+import Post from "../models/postModel.js";
 
 export const loginUser = async (req, res) => {
   const user = await User.find({ email: req.body.email });
@@ -63,12 +64,20 @@ export const registerUser = async (req, res) => {
   }
 };
 
-export const displayUser = (req, res) => {
+export const displayUserAndPosts = (req, res) => {
   User.find({ username: req.params.username })
-    .then((response) =>
-      res.status(200).json({
-        user: response[0],
-      })
+    .then(
+      (response) => {
+        Post.find({ author: response[0].id }).then((posts) =>
+          res.status(200).json({
+            user: response[0],
+            posts,
+          })
+        );
+      }
+      // res.status(200).json({
+      //   user: response[0],
+      // })
     )
     .catch((err) => console.error(err));
 };

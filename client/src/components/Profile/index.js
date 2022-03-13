@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../../api";
 import { useQuery } from "react-query";
+import Form from "./Posts/Form";
 
 const Profile = () => {
   const { username } = useParams();
@@ -9,7 +10,7 @@ const Profile = () => {
   const { isLoading, error, data } = useQuery("insta-user", () =>
     API.get(`/auth/user/${username}`)
   );
-  console.log(data.data);
+  console.log(data);
 
   if (isLoading) {
     return "Loading";
@@ -19,7 +20,8 @@ const Profile = () => {
   return (
     <div>
       Hello world
-      <img src={data.data.user.avatar} />
+      <img src={data.data.user.avatar} width="200" />
+      <Form />
     </div>
   );
 };
