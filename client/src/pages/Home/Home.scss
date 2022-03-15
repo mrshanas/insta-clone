@@ -1,0 +1,11 @@
+.app__home {
+  background: #fff;
+  /* sass allows nesting */
+  button {
+    color: #000;
+    background: #ede;
+    &:hover {
+      background: #000;
+    }
+  }
+}

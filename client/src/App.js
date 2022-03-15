@@ -8,7 +8,7 @@ const App = () => {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <MainRouter />
+      <MainRouter className="app" />
       <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   );
