@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import API from "../../api";
 import { useQuery } from "react-query";
-import Form from "./Posts/Form";
-import Header from "./Header/Header.js";
 import { Skeleton } from "antd";
+import Body from "./Body/Body";
 
 const Profile = () => {
   const { username } = useParams();
@@ -23,7 +22,7 @@ const Profile = () => {
 
   return (
     <div>
-      <Header
+      <Body
         user={data.data.user}
         postCount={data.data.posts.length}
         posts={data.data.posts}

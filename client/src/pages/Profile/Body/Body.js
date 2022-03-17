@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, Avatar, Divider, Image, Modal } from "antd";
-import "./Header.scss";
-import Form from "../Posts/Form";
+import "./Body.scss";
+import Form from "../Form/Form";
 
 const Header = ({ user, postCount, posts }) => {
   //console.log(posts);
