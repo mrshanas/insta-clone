@@ -1,0 +1,43 @@
+.profile__user {
+  width: 100%;
+  margin: 2rem auto;
+
+  p {
+    display: inline;
+    font-size: 1.8rem;
+    float: left;
+    padding-right: 1rem;
+  }
+  button {
+    background: #fff;
+    border: 1px solid #aaa;
+    padding: 0.3rem 1rem;
+    border-radius: 0.25rem;
+  }
+}
+.profile__about {
+  @extend .profile__user;
+  p {
+    width: 100%;
+    font-size: 1rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+  }
+  span {
+    padding: 0 1rem;
+    font-weight: bold;
+  }
+}
+.profile__bio {
+  width: 100%;
+  text-align: center;
+  clear: both;
+  p {
+    width: 100%;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: left;
+    padding: 0 1rem;
+  }
+}
