@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import FileBase64 from "react-file-base64";
 import API from "../../api";
 
+// Convert the image to file base64 in this component
 const Register = () => {
   const user = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -13,10 +13,6 @@ const Register = () => {
     bio: "",
     avatar: "",
   });
-
-  const onDone = ({ base64 }) => {
-    setNewUser((prev) => ({ ...prev, avatar: base64 }));
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,7 +61,6 @@ const Register = () => {
         placeholder="Enter email"
         onChange={handleChange}
       />
-      <FileBase64 multiple={false} onDone={onDone} type="file" />
       <input type="submit" value="Sign up" />
     </form>
   );

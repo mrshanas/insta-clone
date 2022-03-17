@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Row, Col, Avatar, Divider, Image, Modal } from "antd";
 import "./Body.scss";
-import Form from "../Form/Form";
+import UploadForm from "../UploadForm/UploadForm";
 
 const Header = ({ user, postCount, posts }) => {
   //console.log(posts);
   const [visible, setVisible] = useState(false);
+  const closeModal = () => {
+    setVisible(false);
+  };
   return (
     <>
       <Row>
@@ -27,7 +30,7 @@ const Header = ({ user, postCount, posts }) => {
             onCancel={() => setVisible(false)}
             width={1000}
           >
-            <Form />
+            <UploadForm closeModal={closeModal} />
           </Modal>
           <div className="profile__about">
             <p>
@@ -41,7 +44,7 @@ const Header = ({ user, postCount, posts }) => {
         </Col>
         <Divider>Posts</Divider>
         {posts.map((post) => (
-          <Col span={6} offset={2} key={`${post.caption}`}>
+          <Col span={6} offset={2} key={post._id}>
             <Image src={post.photo} />
           </Col>
         ))}
