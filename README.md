@@ -17,7 +17,7 @@ This is a side project I made when learning fullstack web development
 ### Frontend
 
 [React](https://reactjs.org) - For UI<br>
-[React-Query](https://) - For data fetching from server side<br>
+[React-Query](https:react-query.tanstack.com//) - For data fetching from server side<br>
 [AntD](https://ant.design) - For styling
 
 ### Backend
@@ -26,8 +26,43 @@ This is a side project I made when learning fullstack web development
 [ExpressJs](https://expressjs.com) - Web server<br>
 [Node](https://nodejs.org) - Javascript runtime for server side execution
 
+# Contributing to this project
+
+- Contributions, issues and feature request are welcome
+- If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue Don't forget to give the project a star! Thanks again!
+
+1. Fork the project
+2. Clone the repo in your machine
+   ```git
+       git clone <your forked repo url>
+   ```
+3. Install all the dependencies via 👇
+   ```npm
+       npm install && cd client && npm install
+   ```
+4. Create your feature branch
+   ```git
+   git checkout -b feature/some-feature
+   ```
+5. Push to the branch
+   ```git
+   git push origin feature/some-feature
+   ```
+6. Open a pull request
+   <br>
+   <br>
+7. Sit back and relax 😀 your PR will be approved
+   <br>
+
+Feel free to check the issues page to know where to start
+<br>
+
 ## Kindly show your support by giving this project a ⭐
 
+<br>
+
 ### Disclaimer: This project is for learning purposes
+
+<br>
 
 ### This project is MIT licensed
