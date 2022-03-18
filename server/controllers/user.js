@@ -69,3 +69,36 @@ export const displayUserAndPosts = (req, res) => {
     })
     .catch((err) => console.error(err));
 };
+
+export const followUser = (req, res) => {
+  User.findByIdAndUpdate({ _id: req.user.id })
+    .then((user) => {
+      User.findOneAndUpdate({ username: req.params.username })
+        .then((userToBeFollowed) => {
+          // condition to check if user is already followed
+          if (!userToBeFollowed.followers.includes(user._id)) {
+            // the requested user is not followed by logged in user
+            userToBeFollowed.followers.push(user._id);
+            user.following.push(userToBeFollowed._id);
+            user.save();
+            userToBeFollowed.save();
+          } else {
+            // unfollow the user and remove logged in user followers
+
+            // remove the logged user in followers list
+            const userLoggedIndex = userToBeFollowed.followers.indexOf(
+              user._id
+            );
+            userToBeFollowed.followers.splice(userLoggedIndex, 1); // only remove one element
+
+            // remove the req user from following list
+            const userIndex = user.following.indexOf(userToBeFollowed._id);
+            user.following.splice(userIndex, 1);
+            userToBeFollowed.save();
+            user.save();
+          }
+        })
+        .catch((err) => console.error(err));
+    })
+    .catch((err) => console.error(err));
+};
