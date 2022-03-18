@@ -9,7 +9,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <MainRouter className="app" />
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };

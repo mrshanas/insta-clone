@@ -3,7 +3,7 @@ import {
   loginUser,
   registerUser,
   displayUserAndPosts,
-  followUser,
+  followOrUnfollowUser,
 } from "../controllers/user.js";
 import { checkAuthorization } from "../middleware/auth.js";
 
@@ -16,7 +16,7 @@ router.post("/login", loginUser);
 router
   .route("/user/:username")
   .get(checkAuthorization, displayUserAndPosts)
-  .post(checkAuthorization, followUser);
+  .post(checkAuthorization, followOrUnfollowUser);
 
 // router.get('/logout') - handled on the client side
 

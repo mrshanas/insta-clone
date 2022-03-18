@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Row, Col, Avatar, Divider, Image, Modal } from "antd";
 import "./Body.scss";
 import UploadForm from "../UploadForm/UploadForm";
+import Follow from "../Follow/Follow";
 
 const Header = ({ user, postCount, posts, decodedToken }) => {
   //console.log(posts);
@@ -27,7 +28,7 @@ const Header = ({ user, postCount, posts, decodedToken }) => {
                 <button onClick={() => setVisible(true)}>Add Post</button>
               </>
             ) : (
-              <button>Follow</button>
+              <Follow user={user} decodedToken={decodedToken} />
             )}
           </div>
           <Modal
@@ -42,8 +43,9 @@ const Header = ({ user, postCount, posts, decodedToken }) => {
           </Modal>
           <div className="profile__about">
             <p>
-              <span>{postCount} posts</span> <span>0 followers</span>{" "}
-              <span>0 following</span>
+              <span>{postCount} posts</span>{" "}
+              <span>{user.followers.length} followers</span>{" "}
+              <span>{user.following.length} following</span>
             </p>
           </div>
           <div className="profile__bio">

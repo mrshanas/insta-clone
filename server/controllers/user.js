@@ -70,7 +70,7 @@ export const displayUserAndPosts = (req, res) => {
     .catch((err) => console.error(err));
 };
 
-export const followUser = (req, res) => {
+export const followOrUnfollowUser = (req, res) => {
   User.findByIdAndUpdate({ _id: req.user.id })
     .then((user) => {
       User.findOneAndUpdate({ username: req.params.username })
@@ -82,6 +82,7 @@ export const followUser = (req, res) => {
             user.following.push(userToBeFollowed._id);
             user.save();
             userToBeFollowed.save();
+            return res.status(200).json({ message: "Successfully followed" });
           } else {
             // unfollow the user and remove logged in user followers
 
@@ -96,6 +97,7 @@ export const followUser = (req, res) => {
             user.following.splice(userIndex, 1);
             userToBeFollowed.save();
             user.save();
+            return res.status(200).json({ message: "Successfully unfollowed" });
           }
         })
         .catch((err) => console.error(err));
