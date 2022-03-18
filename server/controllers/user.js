@@ -10,7 +10,7 @@ export const loginUser = async (req, res) => {
     const match = await bcrypt.compare(req.body.password, user[0].password);
     if (match) {
       const token = jwt.sign({ id: user[0]._id }, process.env.JWT_SECRET, {
-        expiresIn: "24h",
+        expiresIn: "48h",
       });
       res.status(200).json({
         token,
@@ -33,7 +33,7 @@ export const registerUser = async (req, res) => {
         User.create(userDetails, (err, user) => {
           // assign jwt after user registers
           const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-            expiresIn: "24h",
+            expiresIn: "48h",
           });
           if (!err) {
             return res.status(201).json({

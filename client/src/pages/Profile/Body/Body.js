@@ -3,12 +3,14 @@ import { Row, Col, Avatar, Divider, Image, Modal } from "antd";
 import "./Body.scss";
 import UploadForm from "../UploadForm/UploadForm";
 
-const Header = ({ user, postCount, posts }) => {
+const Header = ({ user, postCount, posts, decodedToken }) => {
   //console.log(posts);
   const [visible, setVisible] = useState(false);
+
   const closeModal = () => {
     setVisible(false);
   };
+
   return (
     <>
       <Row>
@@ -19,8 +21,14 @@ const Header = ({ user, postCount, posts }) => {
         <Col span={12}>
           <div className="profile__user">
             <p>{user.username}</p>
-            <button>Edit Profile</button>
-            <button onClick={() => setVisible(true)}>Add Post</button>
+            {user._id === decodedToken.id ? (
+              <>
+                <button>Edit Profile</button>
+                <button onClick={() => setVisible(true)}>Add Post</button>
+              </>
+            ) : (
+              <button>Follow</button>
+            )}
           </div>
           <Modal
             title="Create a new post"

@@ -14,11 +14,14 @@ const Form = ({ closeModal }) => {
   const getBase64 = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    console.log(reader);
     reader.onload = () => {
       setPost((prev) => ({ ...prev, photo: reader.result }));
       setLoading(false);
     };
+    reader.onerror = () =>
+      message.error(
+        "Failed to read file please try again with another file format"
+      );
   };
 
   const beforeUpload = (file) => {
@@ -31,10 +34,10 @@ const Form = ({ closeModal }) => {
   const handleUploadChange = (info) => {
     info.file.status === "uploading" ? setLoading(true) : setLoading(false);
   };
+
   // overrirde default upload post request
-  const customRequest = (req) => {
-    //console.log(req);
-    req.onSuccess(getBase64(req.file));
+  const customRequest = ({ file, onSuccess }) => {
+    onSuccess(getBase64(file));
   };
 
   const handleChange = (e) => {
@@ -44,7 +47,7 @@ const Form = ({ closeModal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // posting request to the server
+    // post request to the server
     mutation.mutate(post);
     closeModal();
   };
@@ -60,6 +63,7 @@ const Form = ({ closeModal }) => {
           beforeUpload={beforeUpload}
           onChange={handleUploadChange}
           customRequest={customRequest}
+          className="profile__upload"
         >
           {<div>{loading ? <p>Loading</p> : <p>Upload</p>}Upload</div>}
         </Upload>

@@ -4,14 +4,17 @@ import API from "../../api";
 import { useQuery } from "react-query";
 import { Skeleton } from "antd";
 import Body from "./Body/Body";
+import jwtDecode from "jwt-decode";
 
 const Profile = () => {
   const { username } = useParams();
-
+  let decodedToken;
+  if (localStorage.getItem("token")) {
+    decodedToken = jwtDecode(localStorage.getItem("token"));
+  }
   const { isLoading, error, data } = useQuery("insta-user", () =>
     API.get(`/auth/user/${username}`)
   );
-  //console.log(data.data);
 
   if (isLoading) {
     // use antd to show skeleton
@@ -26,6 +29,7 @@ const Profile = () => {
         user={data.data.user}
         postCount={data.data.posts.length}
         posts={data.data.posts}
+        decodedToken={decodedToken}
       />
     </div>
   );
