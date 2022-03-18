@@ -5,6 +5,7 @@ import Register from "./Auth/Register";
 import Home from "./Home/Home";
 import Protected from "./Protected";
 import Profile from "./Profile/index";
+import Four from "./NoPage/404";
 
 const MainRouter = () => {
   const user = localStorage.getItem("token");
@@ -23,13 +24,14 @@ const MainRouter = () => {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route
-          path=":username"
+          path="/user/:username"
           element={
             <Protected user={user}>
               <Profile />
             </Protected>
           }
         />
+        <Route path="*" element={<Four />} />
       </Routes>
     </BrowserRouter>
   );
