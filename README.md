@@ -37,21 +37,27 @@ This is a side project I made when learning fullstack web development
        git clone <your forked repo url>
    ```
 3. Install all the dependencies via 👇
+
    ```npm
        npm install && cd client && npm install
    ```
-4. Create your feature branch
+
+4. Run the backend and frontend server
+   ```npm
+       npm start
+   ```
+5. Create your feature branch
    ```git
    git checkout -b feature/some-feature
    ```
-5. Push to the branch
+6. Push to the branch
    ```git
    git push origin feature/some-feature
    ```
-6. Open a pull request
+7. Open a pull request
    <br>
    <br>
-7. Sit back and relax 😀 your PR will be approved
+8. Sit back and relax 😀 your PR will be approved
    <br>
 
 Feel free to check the issues page to know where to start
