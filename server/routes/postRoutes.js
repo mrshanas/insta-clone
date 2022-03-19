@@ -14,6 +14,7 @@ const router = express.Router();
 
 router.get("/posts", checkAuthorization, displayPosts);
 
+// create a subdocument of user in each post
 router.post("/create_post", checkAuthorization, createPost);
 
 router
