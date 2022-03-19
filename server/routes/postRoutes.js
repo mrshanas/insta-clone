@@ -20,6 +20,7 @@ router
   .route("/post/:postID")
   .get(checkAuthorization, displayPostAndComments)
   .delete(checkAuthorization, deletePost);
+// TODO edit post controller is in the last commits
 
 router.route("/post/:postId/comment").post(checkAuthorization, commentPost);
 
