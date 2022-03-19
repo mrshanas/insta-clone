@@ -3,7 +3,7 @@ import express from "express";
 import {
   displayPosts,
   createPost,
-  displayPostAndComments,
+  displayPostCommentsAndLikes,
   deletePost,
   commentPost,
   deleteComment,
@@ -18,7 +18,7 @@ router.post("/create_post", checkAuthorization, createPost);
 
 router
   .route("/post/:postID")
-  .get(checkAuthorization, displayPostAndComments)
+  .get(checkAuthorization, displayPostCommentsAndLikes)
   .delete(checkAuthorization, deletePost);
 // TODO edit post controller is in the last commits
 
@@ -26,6 +26,6 @@ router.route("/post/:postId/comment").post(checkAuthorization, commentPost);
 
 router.delete("/comment/:commentID/delete", checkAuthorization, deleteComment);
 
-router.post("/posts/:postId/like", checkAuthorization, likeOrDislikePost);
+router.post("/post/:postId/like", checkAuthorization, likeOrDislikePost);
 
 export default router;

@@ -1,5 +1,6 @@
 import Post from "../models/postModel.js";
 import Comment from "../models/comment.js";
+import User from "../models/userModel.js";
 
 export const displayPosts = (req, res) => {
   Post.find({ author: req.user.id }, (err, posts) => {
@@ -25,7 +26,7 @@ export const createPost = (req, res) => {
   });
 };
 
-export const displayPostAndComments = (req, res) => {
+export const displayPostCommentsAndLikes = (req, res) => {
   Post.find({ _id: req.params.postID }, (err, post) => {
     if (!err) {
       Comment.find(post.comments).then((comments) =>
@@ -49,7 +50,23 @@ export const deletePost = (req, res) => {
 };
 
 // liking and disliking posts
-export const likeOrDislikePost = (req, res) => {};
+export const likeOrDislikePost = (req, res) => {
+  Post.findById(req.params.postId)
+    .then((post) => {
+      if (!post.likes.includes(req.user.id)) {
+        post.likes.push(req.user.id);
+        post.save();
+      } else {
+        const index = post.likes.indexOf(req.user.id);
+        post.likes.splice(index, 1);
+        post.save();
+      }
+      return res.status(200);
+    })
+    .catch((err) =>
+      res.status(404).json({ message: "Post not found", error: err })
+    );
+};
 
 // comments logic
 export const commentPost = (req, res) => {
