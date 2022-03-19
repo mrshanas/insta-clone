@@ -5,6 +5,8 @@ import { useQuery } from "react-query";
 import API from "../../api";
 import { Spin } from "antd";
 import Posts from "./Posts";
+import Navbar from "./Navbar";
+import Aside from "./Aside";
 
 const Home = () => {
   const { isLoading, error, data } = useQuery("insta-posts", () =>
@@ -18,11 +20,13 @@ const Home = () => {
   error ? console.log(error) : console.log("");
   return (
     <section className="app__home">
-      <nav>Nav</nav>
+      <Navbar />
       <article>
         {isLoading ? <Spin /> : <Posts posts={data.data.posts} />}
       </article>
-      <aside>Users</aside>
+      <aside>
+        <Aside />
+      </aside>
     </section>
   );
 };

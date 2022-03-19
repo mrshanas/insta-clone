@@ -7,6 +7,7 @@
   grid-template-areas:
     "nav nav nav nav"
     "posts posts posts users";
+  grid-gap: 0.3rem;
   nav {
     grid-area: nav;
     background: rgba(255, 255, 255, 0.3);
@@ -15,12 +16,24 @@
   }
   article {
     grid-area: posts;
+    .post__container {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      .post {
+        width: 31.5rem;
+        margin: 1rem auto;
+      }
+    }
   }
   aside {
     grid-area: users;
     border-left: 1px solid #000;
     height: 94vh;
-    position: sticky;
+    position: relative;
+    .app__aside {
+      position: fixed;
+    }
   }
 
   @media screen and (max-width: 768px) {
