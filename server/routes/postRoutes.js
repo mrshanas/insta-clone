@@ -3,12 +3,10 @@ import express from "express";
 import {
   displayPosts,
   createPost,
-  displayPost,
+  displayPostAndComments,
   deletePost,
-  updatePost,
   commentPost,
   deleteComment,
-  getAllComments,
   likeOrDislikePost,
 } from "../controllers/posts.js";
 
@@ -20,15 +18,12 @@ router.post("/create_post", checkAuthorization, createPost);
 
 router
   .route("/post/:postID")
-  .get(checkAuthorization, displayPost)
-  .delete(checkAuthorization, deletePost)
-  .patch(checkAuthorization, updatePost);
+  .get(checkAuthorization, displayPostAndComments)
+  .delete(checkAuthorization, deletePost);
 
-router
-  .route("/post/:postId/comment")
-  .get(checkAuthorization, getAllComments)
-  .post(checkAuthorization, commentPost)
-  .delete(checkAuthorization, deleteComment);
+router.route("/post/:postId/comment").post(checkAuthorization, commentPost);
+
+router.delete("/comment/:commentID/delete", checkAuthorization, deleteComment);
 
 router.post("/posts/:postId/like", checkAuthorization, likeOrDislikePost);
 

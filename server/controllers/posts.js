@@ -25,42 +25,27 @@ export const createPost = (req, res) => {
   });
 };
 
-export const displayPost = (req, res) => {
-  Post.find({ author: req.user.id, _id: req.params.postID }, (err, post) => {
-    !err
-      ? res.status(200).json({
-          success: true,
-          post,
-        })
-      : res.status(404).json({
-          success: false,
-          message: "Post not found",
-        });
+export const displayPostAndComments = (req, res) => {
+  Post.find({ _id: req.params.postID }, (err, post) => {
+    if (!err) {
+      Comment.find(post.comments).then((comments) =>
+        res.status(200).json({ post: post[0], comments })
+      );
+    } else {
+      res.status(404).json({ message: "Post not found" });
+    }
   });
 };
 
 export const deletePost = (req, res) => {
-  Post.deleteOne({ author: req.user.id, _id: req.params.postID }, (err) => {
-    !err
-      ? res.status(204)
-      : res.status(404).json({
-          success: false,
-          message: "A post with that id does not exist",
-        });
-  });
-};
-
-export const updatePost = (req, res) => {
-  Post.findOneAndUpdate(
-    { author: req.user.id, _id: req.params.postID },
-    req.body,
-    { returnDocument: "after" },
-    (err, updatedPost) => {
-      !err
-        ? res.status(200).json({ success: true, post: updatedPost })
-        : res.status(404).json({ success: false, message: err });
-    }
-  );
+  // this controller delete a post and its related comments
+  Post.deleteOne({ _id: req.params.postID })
+    .then((deletedPost) => {
+      Comment.deleteMany(deletedPost.comments).then(() => res.status(204));
+    })
+    .catch((err) =>
+      res.status(404).json({ message: "post with that id doesnt exist", err })
+    );
 };
 
 // liking and disliking posts
@@ -80,7 +65,7 @@ export const commentPost = (req, res) => {
           post.save();
           return res
             .status(201)
-            .json({ message: "Comment successfully created", post });
+            .json({ message: "Comment successfully created", post, comment });
         })
         .catch((err) => res.status(500));
     })
@@ -88,5 +73,15 @@ export const commentPost = (req, res) => {
       res.status(500).json({ message: "Internal server error", error: err })
     );
 };
-export const getAllComments = (req, res) => {};
-export const deleteComment = (req, res) => {};
+
+export const deleteComment = (req, res) => {
+  Comment.findByIdAndDelete(req.params.commentID, (err, comm) => {
+    if (err) {
+      res.status(404).json({
+        message: "Comment not found",
+      });
+    } else {
+      res.status(204);
+    }
+  });
+};
