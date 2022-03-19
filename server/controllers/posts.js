@@ -3,14 +3,17 @@ import Comment from "../models/comment.js";
 import User from "../models/userModel.js";
 
 export const displayPosts = (req, res) => {
-  Post.find({ author: req.user.id }, (err, posts) => {
-    !err
-      ? res.status(200).json({ posts })
-      : res.status(404).json({
-          message: "Not found",
-        });
-    console.log(err);
-  });
+  Post.find(
+    {},
+    "author caption _id likes createdAt updatedAt photo",
+    (err, posts) => {
+      !err
+        ? res.status(200).json({ posts })
+        : res.status(404).json({
+            message: "Not found",
+          });
+    }
+  );
 };
 
 export const createPost = (req, res) => {

@@ -1,19 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home.scss";
-// import API from "../../api";
+import { useQuery } from "react-query";
+import API from "../../api";
+import { Spin } from "antd";
+import Posts from "./Posts";
 
 const Home = () => {
-  const navigate = useNavigate();
-  const handleClick = () => {
-    localStorage.clear();
-    navigate("/login");
-  };
+  const { isLoading, error, data } = useQuery("insta-posts", () =>
+    API.get("/posts")
+  );
+  //const navigate = useNavigate();
+  // const handleClick = () => {
+  //   localStorage.clear();
+  //   navigate("/login");
+  // };
+  error ? console.log(error) : console.log("");
   return (
-    <div className="app__home">
-      Home this protected route
-      <button onClick={handleClick}>Logout</button>
-    </div>
+    <section className="app__home">
+      <nav>Nav</nav>
+      <article>
+        {isLoading ? <Spin /> : <Posts posts={data.data.posts} />}
+      </article>
+      <aside>Users</aside>
+    </section>
   );
 };
 

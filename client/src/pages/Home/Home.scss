@@ -1,11 +1,41 @@
 .app__home {
-  background: #fff;
-  /* sass allows nesting */
-  button {
-    color: #000;
-    background: #ede;
-    &:hover {
-      background: #000;
+  width: 100vw;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas:
+    "nav nav nav nav"
+    "posts posts posts users";
+  nav {
+    grid-area: nav;
+    background: rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid #000;
+    height: 6vh;
+  }
+  article {
+    grid-area: posts;
+  }
+  aside {
+    grid-area: users;
+    border-left: 1px solid #000;
+    height: 94vh;
+    position: sticky;
+  }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      "nav nav nav nav"
+      "posts posts posts posts";
+    nav {
+      grid-area: nav;
+    }
+    article {
+      grid-area: posts;
+    }
+    aside {
+      display: none;
     }
   }
 }
