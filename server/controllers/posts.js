@@ -1,4 +1,5 @@
 import Post from "../models/postModel.js";
+import Comment from "../models/comment.js";
 
 export const displayPosts = (req, res) => {
   Post.find({ author: req.user.id }, (err, posts) => {
@@ -61,3 +62,31 @@ export const updatePost = (req, res) => {
     }
   );
 };
+
+// liking and disliking posts
+export const likeOrDislikePost = (req, res) => {};
+
+// comments logic
+export const commentPost = (req, res) => {
+  const comment = req.body;
+  comment.post = req.params.postId;
+  comment.author = req.user.id;
+
+  Comment.create(comment)
+    .then((comment) => {
+      Post.findByIdAndUpdate(req.params.postId)
+        .then((post) => {
+          post.comments.push(req.params.postID);
+          post.save();
+          return res
+            .status(201)
+            .json({ message: "Comment successfully created", post });
+        })
+        .catch((err) => res.status(500));
+    })
+    .catch((err) =>
+      res.status(500).json({ message: "Internal server error", error: err })
+    );
+};
+export const getAllComments = (req, res) => {};
+export const deleteComment = (req, res) => {};

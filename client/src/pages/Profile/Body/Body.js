@@ -3,6 +3,7 @@ import { Row, Col, Avatar, Divider, Image, Modal } from "antd";
 import "./Body.scss";
 import UploadForm from "../UploadForm/UploadForm";
 import Follow from "../Follow/Follow";
+import noDp from "../../../assets/images/no-profile-picture.svg";
 
 const Header = ({ user, postCount, posts, decodedToken }) => {
   //console.log(posts);
@@ -16,7 +17,7 @@ const Header = ({ user, postCount, posts, decodedToken }) => {
     <>
       <Row>
         <Col span={8} offset={4}>
-          <Avatar src={user.avatar} size={150} />
+          <Avatar src={user.avatar ? user.avatar : noDp} size={150} />
           {/*<img src={user.avatar} alt={user.username} width="100%" />*/}
         </Col>
         <Col span={12}>

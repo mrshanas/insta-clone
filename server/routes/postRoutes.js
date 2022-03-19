@@ -6,6 +6,10 @@ import {
   displayPost,
   deletePost,
   updatePost,
+  commentPost,
+  deleteComment,
+  getAllComments,
+  likeOrDislikePost,
 } from "../controllers/posts.js";
 
 const router = express.Router();
@@ -25,5 +29,7 @@ router
   .get(checkAuthorization, getAllComments)
   .post(checkAuthorization, commentPost)
   .delete(checkAuthorization, deleteComment);
+
+router.post("/posts/:postId/like", checkAuthorization, likeOrDislikePost);
 
 export default router;
