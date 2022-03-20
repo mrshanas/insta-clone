@@ -3,7 +3,7 @@ import { Card, Avatar } from "antd";
 import Meta from "antd/lib/card/Meta";
 import noDp from "../../assets/images/no-profile-picture.svg";
 
-const Posts = ({ posts }) => {
+const Posts = ({ posts, openPost }) => {
   return (
     <div className="post__container">
       {posts.map((post, i) => (
@@ -15,6 +15,7 @@ const Posts = ({ posts }) => {
             `${post.likes.length} likes`,
             `${post.comments.length} Comments`,
           ]}
+          onClick={() => openPost(post._id)}
         >
           <Avatar src={post.author.avatar ? post.author.avatar : noDp} />
           <Meta description={post.caption} title={`${post.author.username}`} />

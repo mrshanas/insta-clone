@@ -52,3 +52,19 @@
     }
   }
 }
+.post__img {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: "post comments" "post comments";
+
+  div {
+    grid-area: post;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  aside {
+    grid-area: comments;
+  }
+}
