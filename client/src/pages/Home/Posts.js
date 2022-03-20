@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Avatar } from "antd";
 import Meta from "antd/lib/card/Meta";
+import noDp from "../../assets/images/no-profile-picture.svg";
 
 const Posts = ({ posts }) => {
   return (
@@ -10,9 +11,13 @@ const Posts = ({ posts }) => {
           className="post"
           key={post._id}
           cover={<img src={post.photo} alt={`post by ${post._id} ${i}`} />}
-          actions={[`${post.likes.length} likes`, "Comment"]}
+          actions={[
+            `${post.likes.length} likes`,
+            `${post.comments.length} Comments`,
+          ]}
         >
-          <Meta description={post.caption} />
+          <Avatar src={post.author.avatar ? post.author.avatar : noDp} />
+          <Meta description={post.caption} title={`${post.author.username}`} />
         </Card>
       ))}
     </div>

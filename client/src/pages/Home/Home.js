@@ -17,7 +17,7 @@ const Home = () => {
   //   localStorage.clear();
   //   navigate("/login");
   // };
-  error ? console.log(error) : console.log("");
+  error ? console.log(error) : console.log(data);
   return (
     <section className="app__home">
       <Navbar />

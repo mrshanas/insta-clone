@@ -3,17 +3,11 @@ import Comment from "../models/comment.js";
 import User from "../models/userModel.js";
 
 export const displayPosts = (req, res) => {
-  Post.find(
-    {},
-    "author caption _id likes createdAt updatedAt photo",
-    (err, posts) => {
-      !err
-        ? res.status(200).json({ posts })
-        : res.status(404).json({
-            message: "Not found",
-          });
-    }
-  );
+  Post.find({})
+    .populate("author", "_id username avatar")
+    .sort("-createdAt")
+    .then((posts) => res.status(200).json({ posts }))
+    .catch((err) => res.status(500));
 };
 
 export const createPost = (req, res) => {
@@ -21,11 +15,13 @@ export const createPost = (req, res) => {
   post.author = req.user.id;
 
   Post.create(post, (err, post) => {
-    !err
-      ? res.status(201).json({ message: "Successfully created", post })
-      : res.status(500).json({
-          message: "Internal server error",
-        });
+    // !err
+    if (!err) {
+      res.status(201).json({ message: "Successfully created", post });
+    } else {
+      res.status(500).json({ message: "Internal server error" });
+      console.log(err);
+    }
   });
 };
 
