@@ -28,13 +28,13 @@ export const createPost = (req, res) => {
 export const displayPostCommentsAndLikes = (req, res) => {
   Post.find({ _id: req.params.postID }, (err, post) => {
     if (!err) {
-      Comment.find(post.comments).then((comments) =>
-        res.status(200).json({ post: post[0], comments })
-      );
+      Comment.find(post.comments)
+        .populate("author", "_id username avatar")
+        .then((comments) => res.status(200).json({ post: post[0], comments }));
     } else {
       res.status(404).json({ message: "Post not found" });
     }
-  });
+  }).populate("author", "_id username avatar");
 };
 
 export const deletePost = (req, res) => {
@@ -75,7 +75,7 @@ export const commentPost = (req, res) => {
 
   Comment.create(comment)
     .then((comment) => {
-      Post.findByIdAndUpdate(req.params.postId)
+      Post.findById(req.params.postId)
         .then((post) => {
           post.comments.push(req.params.postID);
           post.save();
