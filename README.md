@@ -29,7 +29,7 @@ This is a side project I made when learning fullstack web development
 # Contributing to this project
 
 - Contributions, issues and feature request are welcome
-- If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue Don't forget to give the project a star! Thanks again!
+- If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue Don't forget to give the project a star!!
 
 1. Fork the project
 2. Clone the repo in your machine
