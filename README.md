@@ -23,7 +23,7 @@ This is a side project I made when learning fullstack web development
 ### Backend
 
 [MongoDB](https://docs.mongodb.com) - NoSQL database<br>
-[ExpressJs](https://expressjs.com) - Web server<br>
+[ExpressJs](https://expressjs.com) - Web server framework<br>
 [Node](https://nodejs.org) - Javascript runtime for server side execution
 
 # Contributing to this project
