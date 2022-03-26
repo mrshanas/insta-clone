@@ -72,3 +72,4 @@ Feel free to check the issues page to know where to start
 <br>
 
 ### This project is MIT licensed
+[Back to top](https://github.com/mrshanas/insta-clone)
