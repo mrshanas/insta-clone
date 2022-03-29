@@ -1,10 +1,4 @@
-# Instagram Clone
 
-A fullstack instagram clone
-
-## Description
-
-This is a side project I made when learning fullstack web development
 
 # Tech used
 
