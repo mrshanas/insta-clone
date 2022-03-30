@@ -1,6 +1,5 @@
 import Post from "../models/postModel.js";
 import Comment from "../models/comment.js";
-import User from "../models/userModel.js";
 
 export const displayPosts = (req, res) => {
   Post.find({})
@@ -28,7 +27,7 @@ export const createPost = (req, res) => {
 export const displayPostCommentsAndLikes = (req, res) => {
   Post.find({ _id: req.params.postID }, (err, post) => {
     if (!err) {
-      Comment.find(post.comments)
+      Comment.find({ post: req.params.postID })
         .populate("author", "_id username avatar")
         .then((comments) => res.status(200).json({ post: post[0], comments }));
     } else {
@@ -77,7 +76,7 @@ export const commentPost = (req, res) => {
     .then((comment) => {
       Post.findById(req.params.postId)
         .then((post) => {
-          post.comments.push(req.params.postID);
+          post.comments.push(comment._id);
           post.save();
           return res
             .status(201)
