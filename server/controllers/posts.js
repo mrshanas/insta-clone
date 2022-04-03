@@ -14,7 +14,6 @@ export const createPost = (req, res) => {
   post.author = req.user.id;
 
   Post.create(post, (err, post) => {
-    // !err
     if (!err) {
       res.status(201).json({ message: "Successfully created", post });
     } else {
@@ -25,15 +24,20 @@ export const createPost = (req, res) => {
 };
 
 export const displayPostCommentsAndLikes = (req, res) => {
-  Post.find({ _id: req.params.postID }, (err, post) => {
-    if (!err) {
-      Comment.find({ post: req.params.postID })
+  Post.findOne({ _id: req.params.postID })
+    .populate("author", "_id username avatar")
+    .populate("likes", "_id username avatar")
+    .select("-comments")
+    .then((post) => {
+      Comment.find({ post: post._id })
         .populate("author", "_id username avatar")
-        .then((comments) => res.status(200).json({ post: post[0], comments }));
-    } else {
-      res.status(404).json({ message: "Post not found" });
-    }
-  }).populate("author", "_id username avatar");
+        .sort("-createdAt")
+        .then((comments) => res.status(200).json({ post, comments }));
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(404).json({ message: err.message });
+    });
 };
 
 export const deletePost = (req, res) => {
