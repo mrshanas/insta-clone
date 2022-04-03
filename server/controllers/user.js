@@ -60,7 +60,7 @@ export const registerUser = async (req, res) => {
 export const displayUserAndPosts = (req, res) => {
   User.find({ username: req.params.username })
     .then((response) => {
-      Post.find({ author: response[0].id }).then((posts) =>
+      Post.find({ author: response[0]._id }).then((posts) =>
         res.status(200).json({
           user: response[0],
           posts,

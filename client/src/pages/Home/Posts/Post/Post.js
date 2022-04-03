@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import API from "../../api";
+import API from "../../../../api";
 import { Avatar, Comment } from "antd";
 import { Link } from "react-router-dom";
-import noDp from "../../assets/images/no-profile-picture.svg";
+import noDp from "../../../../assets/images/no-profile-picture.svg";
 
 const Post = ({ postID }) => {
   const [post, setPost] = useState(null);

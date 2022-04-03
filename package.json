@@ -5,7 +5,7 @@
   "main": "server/app.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon server/app.js"
+    "start": "nodemon -L server/app.js"
   },
   "author": "mrshanas",
   "license": "ISC",

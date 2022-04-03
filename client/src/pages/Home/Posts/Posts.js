@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Avatar } from "antd";
 import Meta from "antd/lib/card/Meta";
-import noDp from "../../assets/images/no-profile-picture.svg";
+import noDp from "../../../assets/images/no-profile-picture.svg";
 
 const Posts = ({ posts, openPost }) => {
   return (

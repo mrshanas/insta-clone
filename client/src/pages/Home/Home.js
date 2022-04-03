@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { Spin, Modal } from "antd";
 import API from "../../api";
-import Posts from "./Posts";
-import Navbar from "./Navbar";
-import Aside from "./Aside";
-import Post from "./Post";
+import Posts from "./Posts/Posts";
+import Navbar from "../../components/Navbar/Navbar";
+import Aside from "./Aside/Aside";
+import Post from "./Posts/Post/Post";
 import "./Home.scss";
 
 const Home = () => {
