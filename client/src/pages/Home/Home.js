@@ -6,7 +6,7 @@ import Posts from "./Posts/Posts";
 import Navbar from "../../components/Navbar/Navbar";
 import Aside from "./Aside/Aside";
 import Post from "./Posts/Post/Post";
-import "./Home.scss";
+import "../../sass/Home.scss";
 
 const Home = () => {
   const [postID, setPostId] = useState("");
