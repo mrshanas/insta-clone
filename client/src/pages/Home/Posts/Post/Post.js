@@ -11,8 +11,8 @@ const Post = ({ postID }) => {
 
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
-  const [isLiked, setIsLiked] = useState(false);
   const [comments, setComments] = useState([]);
+  const [likes, setLikes] = useState([]);
 
   useEffect(() => {
     let isMounted = true;
@@ -21,7 +21,7 @@ const Post = ({ postID }) => {
         if (isMounted) {
           setPost(data.post);
           setError(null);
-          setIsLiked(data.post.likes.includes(userId));
+          setLikes(data.post.likes.map((user) => user._id));
           setComments(data.comments);
         }
       })
@@ -33,8 +33,6 @@ const Post = ({ postID }) => {
       isMounted = false;
     };
   }, [postID, userId]);
-
-  //console.log(post);
 
   const likeOrUnlikePost = (e) =>
     API.post(`/post/${post._id}/like`).then((res) => console.log(res));
@@ -69,7 +67,7 @@ const Post = ({ postID }) => {
               />
             ))}
             <button onClick={likeOrUnlikePost}>
-              {isLiked ? "Unlike" : "Like"}
+              {likes.includes(userId) ? "Unlike" : "Like"}
             </button>
 
             <p>{post.likes.length} Likes</p>

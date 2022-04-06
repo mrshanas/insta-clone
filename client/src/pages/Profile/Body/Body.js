@@ -3,7 +3,7 @@ import { Row, Col, Avatar, Divider, Image, Modal } from "antd";
 import UploadForm from "../UploadForm/UploadForm";
 import Follow from "../Follow/Follow";
 import noDp from "../../../assets/images/no-profile-picture.svg";
-import "../../../sass/Body.scss";
+import "../../../sass/Profile.scss";
 
 const Header = ({ user, postCount, posts, decodedToken }) => {
   //console.log(posts);

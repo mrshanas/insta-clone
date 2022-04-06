@@ -14,6 +14,7 @@ export const loginUser = async (req, res) => {
       });
       res.status(200).json({
         token,
+        expiresIn: 48 * 60,
       });
     }
   } else {
@@ -37,8 +38,8 @@ export const registerUser = async (req, res) => {
           });
           if (!err) {
             return res.status(201).json({
-              success: true,
               token,
+              expiresIn: 48 * 60,
             });
           } else {
             return res.status(409).json({
