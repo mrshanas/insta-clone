@@ -4,6 +4,7 @@ import UploadForm from "../UploadForm/UploadForm";
 import Follow from "../Follow/Follow";
 import noDp from "../../../assets/images/no-profile-picture.svg";
 import "../../../sass/Profile.scss";
+import Navbar from "../../../components/Navbar/Navbar";
 
 const Header = ({ user, postCount, posts, decodedToken }) => {
   //console.log(posts);
@@ -16,6 +17,9 @@ const Header = ({ user, postCount, posts, decodedToken }) => {
   return (
     <>
       <Row>
+        <Col span={24}>
+          <Navbar />
+        </Col>
         <Col span={8} offset={4}>
           <Avatar src={user.avatar ? user.avatar : noDp} size={150} />
           {/*<img src={user.avatar} alt={user.username} width="100%" />*/}
