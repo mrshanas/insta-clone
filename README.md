@@ -1,3 +1,4 @@
+![Lines of code](https://img.shields.io/tokei/lines/github/mrshanas/insta-clone?style=for-the-badge)
 # Tech used
 
 ### Languages
